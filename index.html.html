@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)file:///C:/Users/purwa/Downloads/index_4.html -->
+<html lang="en" style="scroll-behavior: smooth;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>To The World's Best Dad</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="./To The World&#39;s Best Dad_files/css2" rel="stylesheet">
+
+<script src="./To The World&#39;s Best Dad_files/gsap.min.js.download"></script>
+<script src="./To The World&#39;s Best Dad_files/ScrollTrigger.min.js.download"></script>
+
+<style>
+  :root{
+    --black:#060607;
+    --black-2:#0b0c0f;
+    --black-3:#101115;
+    --gold:#cda35e;
+    --gold-light:#f2dca6;
+    --gold-deep:#8a6a30;
+    --white:#f4f1ea;
+    --muted:#938d80;
+    --line: rgba(205,163,94,0.18);
+    --glass: rgba(255,255,255,0.035);
+    --glass-border: rgba(205,163,94,0.22);
+    --ease: cubic-bezier(.16,.84,.32,1);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--black);
+    color:var(--white);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    cursor:default;
+  }
+
+  ::selection{ background:var(--gold); color:#000; }
+
+  /* ---------- scrollbar ---------- */
+  ::-webkit-scrollbar{width:8px;}
+  ::-webkit-scrollbar-track{background:var(--black);}
+  ::-webkit-scrollbar-thumb{background:linear-gradient(var(--gold-deep),var(--gold)); border-radius:10px;}
+
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:400;
+    letter-spacing:-0.01em;
+  }
+
+  .mono{
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+  }
+
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:22px;height:1px;
+    background:linear-gradient(90deg, transparent, var(--gold));
+  }
+
+  a{color:inherit; text-decoration:none;}
+
+  /* ================= BACKGROUND LAYERS ================= */
+  #particle-canvas{
+    position:fixed; inset:0;
+    width:100%; height:100%;
+    z-index:0;
+    pointer-events:none;
+    opacity:0.65;
+  }
+
+  .grain{
+    position:fixed; inset:0;
+    z-index:1;
+    pointer-events:none;
+    opacity:0.035;
+    mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .vignette{
+    position:fixed; inset:0; z-index:1; pointer-events:none;
+    background:radial-gradient(ellipse at 50% 40%, transparent 35%, rgba(0,0,0,0.55) 100%);
+  }
+
+  /* ================= NAV ================= */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 5vw;
+    backdrop-filter:blur(14px);
+    background:linear-gradient(rgba(6,6,7,0.55), rgba(6,6,7,0));
+    border-bottom:1px solid transparent;
+  }
+  .nav-mark{
+    display:flex; align-items:center; gap:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:0.22em; text-transform:uppercase;
+    color:var(--gold-light);
+  }
+  .nav-mark span.dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--gold);
+    box-shadow:0 0 8px 2px rgba(205,163,94,0.7);
+    animation:pulse-dot 2.4s infinite ease-in-out;
+  }
+  @keyframes pulse-dot{0%,100%{opacity:1;}50%{opacity:0.35;}}
+
+  .nav-right{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--muted);
+  }
+
+  .progress-rail{
+    position:fixed; top:0; left:0; height:2px; z-index:60;
+    background:linear-gradient(90deg, var(--gold-deep), var(--gold-light));
+    width:0%;
+    box-shadow:0 0 10px rgba(242,220,166,0.6);
+  }
+
+  /* ================= SECTION SHELL ================= */
+  section{
+    position:relative;
+    z-index:2;
+    padding:140px 5vw;
+  }
+
+  .section-head{
+    max-width:780px;
+    margin:0 auto 70px;
+    text-align:center;
+  }
+  .section-head h2{
+    font-size:clamp(32px, 4.6vw, 56px);
+    margin-top:18px;
+    color:var(--white);
+    font-weight:300;
+  }
+  .section-head h2 em{
+    font-style:italic;
+    color:var(--gold-light);
+  }
+  .section-head p{
+    margin-top:18px;
+    color:var(--muted);
+    font-size:16px;
+    line-height:1.7;
+    max-width:560px;
+    margin-left:auto; margin-right:auto;
+  }
+
+  .divider{
+    width:100%; max-width:1100px; margin:0 auto;
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--line), transparent);
+  }
+
+  /* ================= HERO ================= */
+  .hero{
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    position:relative;
+    padding-top:120px;
+    overflow:hidden;
+  }
+
+  .shape-field{
+    position:absolute; inset:0; z-index:0; pointer-events:none;
+    perspective:1400px;
+  }
+  .shape{
+    position:absolute;
+    border:1px solid rgba(205,163,94,0.5);
+    background:linear-gradient(135deg, rgba(205,163,94,0.10), rgba(205,163,94,0.01));
+    backdrop-filter:blur(2px);
+    transform-style:preserve-3d;
+  }
+  .s1{ width:140px;height:140px; top:14%; left:8%; transform:rotate(35deg); border-radius:18px; }
+  .s2{ width:90px;height:90px; top:62%; left:14%; border-radius:50%; }
+  .s3{ width:110px;height:110px; top:22%; right:10%; border-radius:6px; transform:rotate(20deg); }
+  .s4{ width:60px;height:60px; bottom:14%; right:16%; border-radius:50%; }
+  .s5{ width:0; height:0; top:46%; right:26%; border-left:55px solid transparent; border-right:55px solid transparent; border-bottom:95px solid rgba(205,163,94,0.07); background:none; border-top:none; }
+
+  .hero-badge{
+    position:relative; z-index:3;
+  }
+
+  .hero h1{
+    position:relative; z-index:3;
+    font-size:clamp(42px, 8.4vw, 110px);
+    line-height:1.03;
+    font-weight:300;
+    margin-top:30px;
+    background:linear-gradient(180deg, #fff 10%, var(--gold-light) 60%, var(--gold-deep) 130%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    letter-spacing:-0.02em;
+  }
+  .hero h1 .script{
+    display:block;
+    font-style:italic;
+    font-size:0.5em;
+    color:var(--gold-light);
+    -webkit-text-fill-color:var(--gold-light);
+    margin-bottom:6px;
+    letter-spacing:0;
+  }
+
+  .hero p.sub{
+    position:relative; z-index:3;
+    margin-top:28px;
+    max-width:560px;
+    color:var(--muted);
+    font-size:clamp(15px,1.6vw,18px);
+    line-height:1.8;
+    font-weight:300;
+  }
+
+  .hero-cta{
+    position:relative; z-index:3;
+    margin-top:48px;
+    display:flex; gap:18px; align-items:center;
+  }
+  .btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px; letter-spacing:0.18em; text-transform:uppercase;
+    padding:16px 30px;
+    border-radius:999px;
+    border:1px solid var(--gold);
+    color:var(--gold-light);
+    background:rgba(205,163,94,0.06);
+    transition:all .4s var(--ease);
+    cursor:pointer;
+  }
+  .btn:hover{
+    background:var(--gold);
+    color:#0a0a0a;
+    box-shadow:0 0 30px rgba(205,163,94,0.45);
+    transform:translateY(-2px);
+  }
+  .btn-ghost{
+    border-color:rgba(255,255,255,0.18);
+    color:var(--muted);
+    background:transparent;
+  }
+  .btn-ghost:hover{
+    border-color:var(--gold);
+    color:var(--gold-light);
+    background:rgba(205,163,94,0.06);
+    box-shadow:none;
+  }
+
+  .scroll-cue{
+    position:absolute; bottom:42px; left:50%; transform:translateX(-50%);
+    z-index:3;
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+    color:var(--muted);
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px; letter-spacing:0.3em; text-transform:uppercase;
+  }
+  .scroll-cue .line{
+    width:1px; height:46px;
+    background:linear-gradient(var(--gold), transparent);
+    animation:cue 2s infinite ease-in-out;
+  }
+  @keyframes cue{0%{transform:scaleY(0); transform-origin:top;}50%{transform:scaleY(1); transform-origin:top;}51%{transform-origin:bottom;}100%{transform:scaleY(0); transform-origin:bottom;}}
+
+  /* ================= GLASS CARD BASE ================= */
+  .glass{
+    background:var(--glass);
+    border:1px solid var(--glass-border);
+    border-radius:20px;
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    position:relative;
+    overflow:hidden;
+  }
+  .glass::before{
+    content:'';
+    position:absolute; inset:0;
+    background:linear-gradient(135deg, rgba(255,255,255,0.06), transparent 40%);
+    pointer-events:none;
+  }
+
+  /* ================= TIMELINE ================= */
+  .timeline{
+    max-width:880px; margin:0 auto;
+    position:relative;
+    padding-left:0;
+  }
+  .timeline::before{
+    content:'';
+    position:absolute; left:50%; top:0; bottom:0;
+    width:1px;
+    background:linear-gradient(var(--line), var(--gold), var(--line));
+    transform:translateX(-50%);
+  }
+  .t-item{
+    position:relative;
+    width:50%;
+    padding:0 50px 70px;
+  }
+  .t-item:nth-child(odd){ left:0; text-align:right; }
+  .t-item:nth-child(even){ left:50%; text-align:left; }
+  .t-dot{
+    position:absolute; top:6px;
+    width:13px; height:13px; border-radius:50%;
+    background:var(--black);
+    border:2px solid var(--gold);
+    box-shadow:0 0 0 4px rgba(205,163,94,0.1);
+  }
+  .t-item:nth-child(odd) .t-dot{ right:-7px; }
+  .t-item:nth-child(even) .t-dot{ left:-7px; }
+  .t-year{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:0.2em;
+    color:var(--gold);
+    margin-bottom:10px;
+    display:block;
+  }
+  .t-item h3{
+    font-size:22px; font-weight:400; color:var(--white); margin-bottom:10px;
+  }
+  .t-item p{ color:var(--muted); font-size:14.5px; line-height:1.7; }
+
+  @media (max-width: 760px){
+    .timeline::before{ left:18px; }
+    .t-item, .t-item:nth-child(even){ width:100%; left:0; text-align:left; padding:0 0 50px 50px; }
+    .t-item:nth-child(odd) .t-dot, .t-item:nth-child(even) .t-dot{ left:11px; right:auto; }
+  }
+
+  /* ================= CORE SYSTEMS (thank you cards) ================= */
+  .grid-5{
+    max-width:1180px; margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:18px;
+  }
+  .virtue-card{
+    padding:34px 22px;
+    text-align:center;
+    transition:transform .5s var(--ease), border-color .5s var(--ease), background .5s var(--ease);
+  }
+  .virtue-card:hover{
+    transform:translateY(-10px);
+    border-color:var(--gold);
+    background:rgba(205,163,94,0.06);
+  }
+  .virtue-icon{
+    width:54px; height:54px; margin:0 auto 22px;
+    border-radius:50%;
+    border:1px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px;
+    color:var(--gold-light);
+    background:radial-gradient(circle, rgba(205,163,94,0.12), transparent 70%);
+  }
+  .virtue-card h3{
+    font-size:18px; font-weight:400; color:var(--white); margin-bottom:10px;
+    font-family:'Fraunces', serif;
+  }
+  .virtue-card p{ font-size:13px; color:var(--muted); line-height:1.7; }
+
+  @media (max-width:980px){ .grid-5{ grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:520px){ .grid-5{ grid-template-columns:1fr;} }
+
+  /* ================= TELEMETRY / COUNTERS ================= */
+  .telemetry{
+    max-width:1100px; margin:0 auto;
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:24px;
+  }
+  .tele-card{
+    padding:48px 30px;
+    text-align:center;
+  }
+  .tele-num{
+    font-family:'JetBrains Mono', monospace;
+    font-size:clamp(40px,5vw,64px);
+    color:var(--gold-light);
+    font-weight:600;
+    text-shadow:0 0 30px rgba(205,163,94,0.35);
+  }
+  .tele-num sup{ font-size:0.4em; margin-left:4px; color:var(--gold);}
+  .tele-label{
+    margin-top:14px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; letter-spacing:0.2em; text-transform:uppercase;
+    color:var(--muted);
+  }
+  @media (max-width:760px){ .telemetry{ grid-template-columns:1fr; } }
+
+  /* ================= TRANSMISSION (personal message) ================= */
+  .transmission{
+    max-width:880px; margin:0 auto;
+    text-align:center;
+    position:relative;
+  }
+  .transmission .quote-mark{
+    font-family:'Fraunces', serif;
+    font-size:90px;
+    color:var(--gold-deep);
+    line-height:0.5;
+    opacity:0.6;
+  }
+  .transmission h2{
+    font-size:clamp(26px, 4vw, 46px);
+    font-weight:300;
+    line-height:1.5;
+    color:var(--white);
+    font-style:italic;
+  }
+  .transmission h2 .gold{ color:var(--gold-light); font-style:normal; }
+  .transmission .sign{
+    margin-top:34px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; letter-spacing:0.25em; text-transform:uppercase;
+    color:var(--gold);
+  }
+
+  /* ================= FLIGHT PLAN (promise card) ================= */
+  .flightplan{ max-width:760px; margin:0 auto; padding:64px 50px; text-align:center; }
+  .flightplan .tag{
+    display:inline-block;
+    padding:6px 16px;
+    border:1px solid var(--gold);
+    border-radius:999px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px; letter-spacing:0.2em; text-transform:uppercase;
+    color:var(--gold-light);
+    margin-bottom:30px;
+  }
+  .flightplan h2{
+    font-size:clamp(24px,3.6vw,40px);
+    font-weight:300;
+    line-height:1.55;
+    color:var(--white);
+  }
+  .flightplan h2 strong{ color:var(--gold-light); font-weight:500; }
+  .flightplan .checks{
+    margin-top:36px;
+    display:flex; justify-content:center; gap:30px; flex-wrap:wrap;
+  }
+  .check-item{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--muted);
+    display:flex; align-items:center; gap:8px;
+  }
+  .check-item::before{
+    content:'✓';
+    color:var(--gold);
+    border:1px solid var(--gold);
+    border-radius:50%;
+    width:18px; height:18px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:10px;
+  }
+
+  /* ================= ARCHIVE / GALLERY ================= */
+  .carousel-wrap{
+    max-width:1100px; margin:0 auto;
+    position:relative;
+  }
+  .carousel-track{
+    display:flex;
+    gap:22px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    padding:10px 6px 30px;
+    scrollbar-width:none;
+  }
+  .carousel-track::-webkit-scrollbar{ display:none; }
+  .photo-card{
+    flex:0 0 auto;
+    width:280px; height:360px;
+    scroll-snap-align:center;
+    padding:18px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    transition:transform .4s var(--ease);
+  }
+  .photo-card:hover{ transform:translateY(-8px); }
+  .photo-frame{
+    flex:1;
+    border-radius:12px;
+    border:1px solid var(--glass-border);
+    background:radial-gradient(circle at 30% 20%, rgba(205,163,94,0.18), rgba(255,255,255,0.02) 60%);
+    display:flex; align-items:center; justify-content:center;
+    font-size:46px;
+  }
+  .photo-caption{
+    margin-top:16px;
+  }
+  .photo-caption .yr{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px; letter-spacing:0.18em; color:var(--gold);
+  }
+  .photo-caption h4{
+    font-size:16px; font-weight:400; color:var(--white); margin-top:6px;
+    font-family:'Fraunces', serif;
+  }
+  .carousel-nav{
+    display:flex; justify-content:center; gap:14px; margin-top:8px;
+  }
+  .nav-btn{
+    width:42px; height:42px; border-radius:50%;
+    border:1px solid var(--gold);
+    color:var(--gold-light);
+    background:transparent;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    transition:all .3s var(--ease);
+    font-size:16px;
+  }
+  .nav-btn:hover{ background:var(--gold); color:#000; }
+
+  /* ================= CERTIFICATION ================= */
+  .cert-wrap{
+    max-width:760px; margin:0 auto;
+    padding:70px 50px;
+    text-align:center;
+    position:relative;
+  }
+  .patch{
+    width:170px; height:170px;
+    margin:0 auto 36px;
+    position:relative;
+  }
+  .patch-ring{
+    position:absolute; inset:0;
+    border-radius:50%;
+    border:1px solid rgba(205,163,94,0.4);
+  }
+  .patch-ring.r2{ inset:12px; border-style:dashed; animation:spin-slow 30s linear infinite; }
+  .patch-ring.r3{ inset:24px; }
+  .patch-core{
+    position:absolute; inset:34px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #2a2210, #0a0905 70%);
+    border:1px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-size:46px;
+    box-shadow:inset 0 0 30px rgba(205,163,94,0.25), 0 0 40px rgba(205,163,94,0.15);
+  }
+  @keyframes spin-slow{ to{ transform:rotate(360deg);} }
+
+  .cert-title{
+    font-family:'Fraunces', serif;
+    font-size:clamp(26px,3.6vw,40px);
+    font-weight:300;
+    color:var(--white);
+  }
+  .cert-title .shine{
+    position:relative;
+    display:inline-block;
+    background:linear-gradient(100deg, var(--gold-deep) 20%, var(--gold-light) 40%, #fff 50%, var(--gold-light) 60%, var(--gold-deep) 80%);
+    background-size:220% auto;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation:shine 4.5s linear infinite;
+  }
+  @keyframes shine{ to{ background-position:-220% center; } }
+
+  .cert-sub{
+    margin-top:16px;
+    color:var(--muted);
+    font-size:14px; line-height:1.8;
+    max-width:480px; margin-left:auto; margin-right:auto;
+  }
+  .cert-seal{
+    margin-top:34px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px; letter-spacing:0.22em; text-transform:uppercase;
+    color:var(--gold);
+    display:flex; align-items:center; justify-content:center; gap:12px;
+  }
+  .cert-seal::before, .cert-seal::after{
+    content:''; width:30px; height:1px; background:var(--gold-deep);
+  }
+
+  /* ================= FOOTER ================= */
+  footer{
+    position:relative; z-index:2;
+    text-align:center;
+    padding:70px 5vw 50px;
+    border-top:1px solid var(--line);
+  }
+  footer .made{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--muted);
+  }
+  footer .made strong{ color:var(--gold-light); font-weight:500; }
+  footer .heart{ color:var(--gold); }
+  footer .small{
+    margin-top:10px;
+    font-size:11px;
+    color:#5c594f;
+    letter-spacing:0.1em;
+  }
+
+  /* fade-in utility used by JS/GSAP */
+  .reveal{ opacity:0; transform:translateY(40px); }
+
+  @media (max-width: 600px){
+    section{ padding:100px 6vw; }
+    .flightplan{ padding:46px 26px; }
+    .cert-wrap{ padding:50px 24px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+  }
+</style>
+</head>
+<body style="">
+
+<div class="progress-rail" id="progressRail"></div>
+<canvas id="particle-canvas" width="1440" height="1683"></canvas>
+<div class="grain"></div>
+<div class="vignette"></div>
+
+<nav>
+  <div class="nav-mark"><span class="dot"></span> MISSION: DAD</div>
+  <div class="nav-right">EST. ALWAYS — RUNNING</div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="shape-field" id="shapeField">
+    <div class="shape s1" data-depth="0.6" style="translate: none; rotate: none; scale: none; transform: translate3d(7.8333px, -16.6819px, 0px) rotate(35.0002deg);"></div>
+    <div class="shape s2" data-depth="0.3" style="translate: none; rotate: none; scale: none; transform: translate3d(3.9166px, -8.1833px, 0px);"></div>
+    <div class="shape s3" data-depth="0.5" style="translate: none; rotate: none; scale: none; transform: translate3d(6.5277px, -13.943px, 0px) rotate(20deg);"></div>
+    <div class="shape s4" data-depth="0.8" style="translate: none; rotate: none; scale: none; transform: translate3d(10.4444px, -22.4756px, 0px);"></div>
+    <div class="shape s5" data-depth="0.4" style="translate: none; rotate: none; scale: none; transform: translate3d(5.2222px, -11.2249px, 0px);"></div>
+  </div>
+
+  <div class="eyebrow hero-badge" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">FATHER'S DAY TRIBUTE · 2026</div>
+
+  <h1 style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
+    <span class="script" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">To</span>
+    The World's Best Dad
+  </h1>
+
+  <p class="sub" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">Thank you for every sacrifice, every lesson, and every moment of support.</p>
+
+  <div class="hero-cta" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
+    <a href="file:///C:/Users/purwa/Downloads/index_4.html#transmission" class="btn">Read the Message</a>
+    <a href="file:///C:/Users/purwa/Downloads/index_4.html#timeline" class="btn btn-ghost">View the Journey</a>
+  </div>
+
+  <div class="scroll-cue" style="opacity: 1;"><span>Scroll</span><span class="line"></span></div>
+</section>
+
+<!-- ============ MEMORY TIMELINE ============ -->
+<section id="timeline">
+  <div class="section-head">
+    <div class="eyebrow" style="justify-content:center;">Mission Log</div>
+    <h2>Every <em>chapter</em> you wrote with me</h2>
+    <p>From the first steps to the proudest milestones — the moments that built who I am.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="t-item reveal" style="translate: none; rotate: none; scale: none; transform: translate(-40px, 40px); opacity: 0;">
+      <span class="t-dot"></span>
+      <span class="t-year">ORIGIN</span>
+      <h3>The First Steps</h3>
+      <p>Your hands were the ones that caught me when I fell, and let go only when I was ready to walk on my own.</p>
+    </div>
+    <div class="t-item reveal" style="translate: none; rotate: none; scale: none; transform: translate(40px, 40px); opacity: 0;">
+      <span class="t-dot"></span>
+      <span class="t-year">EARLY YEARS</span>
+      <h3>The 6 AM Drop-Offs</h3>
+      <p>Before the sun was up, you were already awake — making sure I never once missed a morning.</p>
+    </div>
+    <div class="t-item reveal" style="translate: none; rotate: none; scale: none; transform: translate(-40px, 40px); opacity: 0;">
+      <span class="t-dot"></span>
+      <span class="t-year">GROWTH</span>
+      <h3>The Late-Night Lessons</h3>
+      <p>Homework, heartbreaks, hard questions — you sat with me through all of it, patient until I understood.</p>
+    </div>
+    <div class="t-item reveal" style="translate: none; rotate: none; scale: none; transform: translate(40px, 40px); opacity: 0;">
+      <span class="t-dot"></span>
+      <span class="t-year">MILESTONE</span>
+      <h3>Letting Go, Cheering Loudest</h3>
+      <p>The hardest thing you ever did was step back — and the proudest thing you ever did was clap the loudest from the stands.</p>
+    </div>
+    <div class="t-item reveal" style="translate: none; rotate: none; scale: none; transform: translate(-40px, 40px); opacity: 0;">
+      <span class="t-dot"></span>
+      <span class="t-year">PRESENT</span>
+      <h3>Still My First Call</h3>
+      <p>Every win, every worry — you're still the first person I want to tell, and the steadiest voice I trust.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============ CORE SYSTEMS ============ -->
+<section id="systems">
+  <div class="section-head">
+    <div class="eyebrow" style="justify-content:center;">Core Systems</div>
+    <h2>What you gave me, <em>built-in</em></h2>
+    <p>Five things you never had to say out loud — because you simply lived them, every single day.</p>
+  </div>
+
+  <div class="grid-5">
+    <div class="virtue-card glass reveal" style="translate: none; rotate: none; scale: none; transform: translate(0px, 50px); opacity: 0;">
+      <div class="virtue-icon">♥</div>
+      <h3>Love</h3>
+      <p>Unconditional, quiet, and constant — the foundation under everything else.</p>
+    </div>
+    <div class="virtue-card glass reveal" style="translate: none; rotate: none; scale: none; transform: translate(0px, 50px); opacity: 0;">
+      <div class="virtue-icon">◆</div>
+      <h3>Support</h3>
+      <p>Behind every decision I made, you were the steady hand making sure I didn't fall alone.</p>
+    </div>
+    <div class="virtue-card glass reveal" style="translate: none; rotate: none; scale: none; transform: translate(0px, 50px); opacity: 0;">
+      <div class="virtue-icon">⬡</div>
+      <h3>Guidance</h3>
+      <p>You never gave me the answers — you taught me how to find them myself.</p>
+    </div>
+    <div class="virtue-card glass reveal" style="translate: none; rotate: none; scale: none; transform: translate(0px, 50px); opacity: 0;">
+      <div class="virtue-icon">▲</div>
+      <h3>Strength</h3>
+      <p>I watched you carry weight you never complained about, and learned what resilience looks like.</p>
+    </div>
+    <div class="virtue-card glass reveal" style="translate: none; rotate: none; scale: none; transform: translate(0px, 50px); opacity: 0;">
+      <div class="virtue-icon">✦</div>
+      <h3>Inspiration</h3>
+      <p>Everything I aim to become, I'm aiming at because I first saw it in you.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TELEMETRY ============ -->
+<section id="telemetry">
+  <div class="section-head">
+    <div class="eyebrow" style="justify-content:center;">Telemetry</div>
+    <h2>Numbers that can't <em>actually</em> be measured</h2>
+    <p>But if a counter could try, here's what it would read.</p>
+  </div>
+
+  <div class="telemetry">
+    <div class="tele-card glass reveal" style="translate: none; rotate: none; scale: none; transform: translate(0px, 40px); opacity: 0;">
+      <div class="tele-num" data-count="100" data-suffix="%">0%</div>
+      <div class="tele-label">Years of Love</div>
+    </div>
+    <div class="tele-card glass reveal" style="translate: none; rotate: none; scale: none; transform: translate(0px, 40px); opacity: 0;">
+      <div class="tele-num" data-count="999" data-suffix="+">0+</div>
+      <div class="tele-label">Countless Sacrifices</div>
+    </div>
+    <div class="tele-card glass reveal" style="translate: none; rotate: none; scale: none; transform: translate(0px, 40px); opacity: 0;">
+      <div class="tele-num" data-infinity="true">0</div>
+      <div class="tele-label">Infinite Support</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============ TRANSMISSION ============ -->
+<section id="transmission">
+  <div class="transmission">
+    <div class="eyebrow" style="justify-content:center;">Transmission</div>
+    <div class="quote-mark">"</div>
+    <h2 class="reveal" style="translate: none; rotate: none; scale: none; transform: translate(0px, 40px); opacity: 0;">Dad, every success I achieve will always have <span class="gold">your fingerprints</span> on it.</h2>
+    <div class="sign">— With all my gratitude</div>
+  </div>
+</section>
+
+<!-- ============ FLIGHT PLAN ============ -->
+<section id="flightplan">
+  <div class="flightplan glass reveal" style="translate: none; rotate: none; scale: none; transform: translate(0px, 40px); opacity: 0;">
+    <span class="tag">Flight Plan · Filed</span>
+    <h2>I promise to <strong>work hard</strong>, become <strong>successful</strong>, and make you <strong>proud</strong>.</h2>
+    <div class="checks">
+      <div class="check-item">Effort</div>
+      <div class="check-item">Integrity</div>
+      <div class="check-item">Gratitude</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============ ARCHIVE / GALLERY ============ -->
+<section id="archive">
+  <div class="section-head">
+    <div class="eyebrow" style="justify-content:center;">Archive</div>
+    <h2>Frames worth <em>keeping forever</em></h2>
+    <p>A few of the countless moments that made it into the family record.</p>
+  </div>
+
+  <div class="carousel-wrap">
+    <div class="carousel-track" id="carouselTrack">
+      <div class="photo-card glass">
+        <div class="photo-frame">👶</div>
+        <div class="photo-caption"><span class="yr">CH. 01</span><h4>Day One, Hand in Hand</h4></div>
+      </div>
+      <div class="photo-card glass">
+        <div class="photo-frame">🚲</div>
+        <div class="photo-caption"><span class="yr">CH. 02</span><h4>Learning to Balance</h4></div>
+      </div>
+      <div class="photo-card glass">
+        <div class="photo-frame">🎓</div>
+        <div class="photo-caption"><span class="yr">CH. 03</span><h4>The Day You Were Proudest</h4></div>
+      </div>
+      <div class="photo-card glass">
+        <div class="photo-frame">🏡</div>
+        <div class="photo-caption"><span class="yr">CH. 04</span><h4>Sunday Mornings at Home</h4></div>
+      </div>
+      <div class="photo-card glass">
+        <div class="photo-frame">✈️</div>
+        <div class="photo-caption"><span class="yr">CH. 05</span><h4>Every Trip You Made Possible</h4></div>
+      </div>
+      <div class="photo-card glass">
+        <div class="photo-frame">🌅</div>
+        <div class="photo-caption"><span class="yr">CH. 06</span><h4>Still Writing the Next One</h4></div>
+      </div>
+    </div>
+    <div class="carousel-nav">
+      <button class="nav-btn" id="prevBtn">←</button>
+      <button class="nav-btn" id="nextBtn">→</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CERTIFICATION ============ -->
+<section id="certification">
+  <div class="cert-wrap glass reveal" style="translate: none; rotate: none; scale: none; transform: translate(0px, 40px); opacity: 0;">
+    <div class="patch">
+      <div class="patch-ring r1"></div>
+      <div class="patch-ring r2"></div>
+      <div class="patch-ring r3"></div>
+      <div class="patch-core">🏆</div>
+    </div>
+    <div class="eyebrow" style="justify-content:center;">Certification · Issued for Life</div>
+    <h2 class="cert-title"><span class="shine">World's Best Dad Award</span></h2>
+    <p class="cert-sub">Awarded for outstanding performance in love, patience, sacrifice, and showing up — every single time, without exception.</p>
+    <div class="cert-seal">VERIFIED BY YOUR CHILD</div>
+  </div>
+</section>
+
+<footer>
+  <div class="made">Made with <span class="heart">♥</span> by <strong>Ansh</strong></div>
+  <div class="small">A small tribute for an immeasurable debt — Happy Father's Day.</div>
+</footer>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ---------------- Scroll progress rail ---------------- */
+const rail = document.getElementById('progressRail');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+  rail.style.width = pct + '%';
+});
+
+/* ---------------- Particle field (golden floating dust) ---------------- */
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles;
+
+function resize(){
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight * 2.2; // covers scroll a bit, repositioned via fixed
+}
+function initParticles(){
+  particles = Array.from({length: Math.min(90, Math.floor(window.innerWidth/14))}, () => ({
+    x: Math.random()*W,
+    y: Math.random()*H,
+    r: Math.random()*1.8 + 0.4,
+    speed: Math.random()*0.35 + 0.05,
+    drift: (Math.random()-0.5)*0.25,
+    alpha: Math.random()*0.5 + 0.15
+  }));
+}
+resize(); initParticles();
+window.addEventListener('resize', () => { resize(); initParticles(); });
+
+function animateParticles(){
+  ctx.clearRect(0,0,W,H);
+  particles.forEach(p => {
+    p.y -= p.speed;
+    p.x += p.drift;
+    if(p.y < -10){ p.y = H + 10; p.x = Math.random()*W; }
+    ctx.beginPath();
+    ctx.arc(p.x, p.y % window.innerHeight, p.r, 0, Math.PI*2);
+    ctx.fillStyle = `rgba(212,175,106,${p.alpha})`;
+    ctx.shadowColor = 'rgba(212,175,106,0.8)';
+    ctx.shadowBlur = 6;
+    ctx.fill();
+  });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+/* ---------------- Hero parallax shapes (mouse) ---------------- */
+const shapeField = document.getElementById('shapeField');
+const shapes = shapeField.querySelectorAll('.shape');
+window.addEventListener('mousemove', (e) => {
+  const cx = window.innerWidth/2, cy = window.innerHeight/2;
+  const dx = (e.clientX - cx)/cx, dy = (e.clientY - cy)/cy;
+  shapes.forEach(s => {
+    const depth = parseFloat(s.dataset.depth) || 0.5;
+    gsap.to(s, { x: dx * 30 * depth, y: dy * 30 * depth, duration: 1.2, ease:'power3.out' });
+  });
+});
+
+/* slow ambient float for shapes */
+shapes.forEach((s, i) => {
+  gsap.to(s, {
+    y: '+=18', duration: 4 + i, repeat:-1, yoyo:true, ease:'sine.inOut', delay: i*0.3
+  });
+});
+
+/* ---------------- Hero entrance ---------------- */
+gsap.timeline()
+  .from('.hero-badge', { opacity:0, y:-20, duration:0.9, ease:'power3.out' })
+  .from('.hero h1 .script', { opacity:0, y:10, duration:0.7 }, '-=0.4')
+  .from('.hero h1', { opacity:0, y:40, duration:1.1, ease:'power3.out' }, '-=0.5')
+  .from('.hero p.sub', { opacity:0, y:20, duration:0.9 }, '-=0.6')
+  .from('.hero-cta', { opacity:0, y:20, duration:0.8 }, '-=0.5')
+  .from('.scroll-cue', { opacity:0, duration:0.8 }, '-=0.4');
+
+/* ---------------- Scroll reveals ---------------- */
+gsap.utils.toArray('.reveal').forEach((el) => {
+  gsap.fromTo(el, { opacity:0, y:40 }, {
+    opacity:1, y:0, duration:1, ease:'power3.out',
+    scrollTrigger:{ trigger: el, start:'top 85%' }
+  });
+});
+
+/* stagger virtue cards */
+gsap.fromTo('.virtue-card', { opacity:0, y:50 }, {
+  opacity:1, y:0, duration:0.9, stagger:0.12, ease:'power3.out',
+  scrollTrigger:{ trigger:'.grid-5', start:'top 80%' }
+});
+
+/* stagger timeline items */
+gsap.utils.toArray('.t-item').forEach((el, i) => {
+  gsap.fromTo(el, { opacity:0, x: i % 2 === 0 ? -40 : 40 }, {
+    opacity:1, x:0, duration:0.9, ease:'power3.out',
+    scrollTrigger:{ trigger: el, start:'top 88%' }
+  });
+});
+
+/* ---------------- Counter animation ---------------- */
+document.querySelectorAll('.tele-num').forEach((el) => {
+  ScrollTrigger.create({
+    trigger: el,
+    start: 'top 85%',
+    once: true,
+    onEnter: () => {
+      if(el.dataset.infinity){
+        let frame = 0;
+        gsap.to({}, { duration: 1.6, onUpdate: function(){
+          frame++;
+          el.textContent = '∞';
+        }});
+      } else {
+        const target = parseInt(el.dataset.count, 10);
+        const suffix = el.dataset.suffix || '';
+        let obj = { val: 0 };
+        gsap.to(obj, {
+          val: target, duration: 2, ease:'power2.out',
+          onUpdate: () => { el.textContent = Math.floor(obj.val) + suffix; }
+        });
+      }
+    }
+  });
+});
+
+/* ---------------- Carousel controls ---------------- */
+const track = document.getElementById('carouselTrack');
+const cardWidth = 302; // width + gap
+document.getElementById('nextBtn').addEventListener('click', () => {
+  track.scrollBy({ left: cardWidth, behavior:'smooth' });
+});
+document.getElementById('prevBtn').addEventListener('click', () => {
+  track.scrollBy({ left: -cardWidth, behavior:'smooth' });
+});
+
+/* ---------------- Nav background on scroll ---------------- */
+const navEl = document.querySelector('nav');
+ScrollTrigger.create({
+  start: 100, end: 99999,
+  onUpdate: (self) => {
+    if(self.scroll() > 80){
+      navEl.style.background = 'linear-gradient(rgba(6,6,7,0.85), rgba(6,6,7,0.5))';
+      navEl.style.borderBottomColor = 'rgba(205,163,94,0.15)';
+    } else {
+      navEl.style.background = 'linear-gradient(rgba(6,6,7,0.55), rgba(6,6,7,0))';
+      navEl.style.borderBottomColor = 'transparent';
+    }
+  }
+});
+</script>
+
+
+
+</body></html>
